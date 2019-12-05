@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/smileJMJ/gulpBabel#readme",
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/register": "^7.7.4",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0"
   }
 }
