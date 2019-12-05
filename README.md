@@ -1,3 +1,7 @@
+# 프로젝트 소개
+- ES6를 사용할 수 있는 환경을 구축한다. (Gulp, Babel 등)
+- https://medium.com/@michael.karen/learning-modern-javascript-with-tetris-92d532bcd057 을 예제로 테트리스를 만들어보며 공부한다.
+
 # gulp 환경 구축
 1. gulp-cli 설치  
   

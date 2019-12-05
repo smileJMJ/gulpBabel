@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import babel from 'gulp-babel';
+import concat from 'gulp-concat';
 import del from 'del';
 
 const paths = {
@@ -14,6 +15,7 @@ export const clean = () => del(['assets']);
 export function scripts() {
     return gulp.src(paths.scripts.src, {sourcemaps: true})
         .pipe(babel())
+        .pipe(concat('index.js'))
         .pipe(gulp.dest(paths.scripts.dest));
 }
 
