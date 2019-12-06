@@ -9,11 +9,13 @@ const paths = {
         dest: 'assets/scripts/'
     }
 }
+const jsDir = './src/scripts/';
 
-export const clean = () => del(['assets']);
+export const clean = () => del(['assets/scripts']);
 
 export function scripts() {
-    return gulp.src(paths.scripts.src, {sourcemaps: true})
+    //return gulp.src(paths.scripts.src, {sourcemaps: true})
+    return gulp.src([`${jsDir}constants.js`, `${jsDir}piece.js`, `${jsDir}board.js`, `${jsDir}main.js`], {sourcemaps: true}) // piece.js를 board.js, main.js보다 위에 올리기 위해
         .pipe(babel())
         .pipe(concat('index.js'))
         .pipe(gulp.dest(paths.scripts.dest));
