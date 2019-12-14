@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>테트리스</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
 </head>
 <body>
     <div class="grid">
@@ -17,12 +17,6 @@
                 <p>Lines: <span id="lines">0</span></p>
                 <p>Level: <span id="level">0</span></p>
                 <canvas id="next" class="next"></canvas>
-                <ul>
-                    <li><button type="button" class="btnRotate" data-button="90">90deg</button></li>
-                    <li><button type="button" class="btnRotate" data-button="180">180deg</button></li>
-                    <li><button type="button" class="btnRotate" data-button="270">270deg</button></li>
-                    <li><button type="button" class="btnRotate" data-button="360">360deg</button></li>
-                </ul>
             </div>
             <button onclick="play()" class="play-button">Play</button>
         </div>

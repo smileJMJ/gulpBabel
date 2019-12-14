@@ -1,53 +1,49 @@
 const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
+const canvasNext = document.getElementById('next');
+const ctxNext = canvasNext.getContext('2d');
 
-let board = new Board(ctx);
+let board = new Board(ctx, ctxNext);
 let moves = {
     [KEY.LEFT]: p => ({ ...p, x: p.x - 1}),
     [KEY.RIGHT]: p => ({...p, x: p.x + 1}),
     [KEY.DOWN]: p => ({ ...p, y: p.y + 1}),
-    [KEY.UP]: p => ({ ...p, y: p.y - 1 }),
+    [KEY.UP]: p => ({ ...p, shape: rotate(p) }),
     [KEY.SPACE]: p => ({ ...p, y: p.y + 1 })
 };
 
-// Calculate size of canvas constants
-ctx.canvas.width = COLS * BLOCK_SIZE;
-ctx.canvas.height = ROWS * BLOCK_SIZE;
-
-// Scale blocks
-ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
-
-// 회전 버튼 이벤트 - 나중에 지우기
-let buttonObj = document.getElementsByClassName('btnRotate');
-Object.keys(buttonObj).forEach((v, i) => {
-   buttonObj[v].addEventListener('click', (e) => {
-       let $btn = e.target;
-       let p = board.piece;
-       rotate(p, Number($btn.dataset.button));
-   });
-});
-
-function rotate(p, deg) {
-    let multiple = deg / 90;
-    //let arr = p.shape;
-    let arr = [[0,2,0], [2,2,2], [0,0,0]];
+function rotate(p) {
+    let arr = p.shape;
     let rArr = JSON.parse(JSON.stringify(arr));
     let xLng, yLng = arr.length;
-console.log('arr', arr)
+
     arr.forEach((y, i) => {
         xLng = y.length;
-        console.log(y);
         y.forEach((x, j) => {
+            /*switch(multiple) {
+                case 1:
+                    rArr[j][xLng-i-1] = x;
+                    break;
+                case 2:
+                    rArr[yLng-i-1][xLng-j-1] = x;
+                    break;
+                case 3:
+                    rArr[yLng-j-1][i] = x;
+                    break;
+                default:
+                    rArr[i][j] = x;
+                    break;
+            }*/
             rArr[j][xLng-i-1] = x;
         });
-    })
-    console.log(rArr);
+    });
+    return rArr;
 }
 
 function play() {
     board.reset();
     let piece = new Piece(ctx);
-    piece.draw();
+    board.draw();
     keyEvent();
 }
 
@@ -67,6 +63,8 @@ function keyEvent() {
                     board.piece.move(p);
                     p = moves[KEY.DOWN](board.piece);
                 }
+            } else if(event.keyCode === KEY.UP) {
+                board.piece.rotate(p);
             } else {
                 if(board.valid(p)) {
                     // If the move is valid, move the piece
@@ -75,7 +73,7 @@ function keyEvent() {
             }
             // Clear old position before drawing
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            board.piece.draw();
+            board.draw();
         }
     });
 }
